@@ -159,9 +159,16 @@ namespace NORM.SQLite
             if (type == typeof(DateTime)) result.Append("TEXT");
             else if (type == typeof(DateTime?)) result.Append("TEXT");
             else if (type == typeof(int)) result.Append("INTEGER");
+            else if (type == typeof(int?)) result.Append("INTEGER");
+            else if (type == typeof(long)) result.Append("INTEGER");
+            else if (type == typeof(long?)) result.Append("INTEGER");
             else if (type == typeof(float)) result.Append("REAL");
+            else if (type == typeof(float?)) result.Append("REAL");
+            else if (type == typeof(decimal)) result.Append("REAL");
+            else if (type == typeof(decimal?)) result.Append("REAL");
             else if (type == typeof(string)) result.Append("TEXT");
             else if (type == typeof(bool)) result.Append("INTEGER");
+            else if (type == typeof(bool?)) result.Append("INTEGER");
             else if (type.IsEnum) result.Append("INTEGER");
             else throw new Exception("Неизвестный тип данных");
 

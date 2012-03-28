@@ -52,10 +52,10 @@ namespace NORM.Migration
                 if (migrate.Key > currentVersion)
                 {
                     var stringBuilder = new StringBuilder();
-                    if (!migrate.Value.WithoutTransaction) stringBuilder.AppendLine("BEGIN TRANSACTION T1;");
+                    if (migrate.Value.UseTransaction) stringBuilder.AppendLine("BEGIN TRANSACTION T1;");
                     stringBuilder.AppendLine(migrate.Value.Up);
                     stringBuilder.AppendLine(GetUpdateCurrentVersionQuery(migrate.Key));
-                    if (!migrate.Value.WithoutTransaction) stringBuilder.AppendLine("COMMIT TRANSACTION T1;");
+                    if (migrate.Value.UseTransaction) stringBuilder.AppendLine("COMMIT TRANSACTION T1;");
                     ExecuteMigration(stringBuilder);
                 }
             }

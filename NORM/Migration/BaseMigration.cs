@@ -2,7 +2,7 @@
 {
     public abstract class BaseMigration
     {
-        public virtual bool WithoutTransaction
+        public virtual bool UseTransaction
         {
             get { return false; }
         }

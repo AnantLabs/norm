@@ -211,15 +211,20 @@ EXEC sp_configure 'show advanced options' , '0';");
 
             if (type == typeof(XmlDocument)) result.Append("xml");
             else if (type == typeof(object)) result.Append("sql_variant");
+            else if (type == typeof(Guid)) result.Append("uniqueidentifier");
             else if (type == typeof(DateTime)) result.Append("datetime2");
             else if (type == typeof(DateTime?)) result.Append("datetime2");
-            else if (type == typeof(Guid)) result.Append("uniqueidentifier");
             else if (type == typeof(int)) result.Append("int");
-            else if (type == typeof(float)) result.Append("float");
-            else if (type == typeof(decimal)) result.Append("real");
+            else if (type == typeof(int?)) result.Append("int");
             else if (type == typeof(long)) result.Append("bigint");
+            else if (type == typeof(long?)) result.Append("bigint");
+            else if (type == typeof(float)) result.Append("float");
+            else if (type == typeof(float?)) result.Append("float");
+            else if (type == typeof(decimal)) result.Append("real");
+            else if (type == typeof(decimal?)) result.Append("real");
             else if (type == typeof(string)) result.AppendFormat("nvarchar({0})", column.Size);
             else if (type == typeof(bool)) result.Append("bit");
+            else if (type == typeof(bool?)) result.Append("bit");
             else if (type.IsEnum) result.Append("int");
             else throw new Exception("Неизвестный тип данных");
 

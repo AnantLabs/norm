@@ -1,0 +1,8 @@
+glob:*.gpState
+glob:*.suo
+glob:*/bin/*
+glob:*/obj/*
+glob:_ReSharper*
+glob:*.user
+glob:Thumbs.db
+glob:*TestResults/*

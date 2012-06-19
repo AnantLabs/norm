@@ -1,4 +1,6 @@
-﻿namespace NORM.Migration
+﻿using System.Linq;
+
+namespace NORM.Migration
 {
     public abstract class BaseMigration
     {
@@ -12,6 +14,15 @@
         public virtual string Down
         {
             get { return string.Empty; }
+        }
+
+        public int Version
+        {
+            get
+            {
+                var version = (VersionAttribute)GetType().GetCustomAttributes(typeof(VersionAttribute), true).Single();
+                return version.Version;
+            }
         }
     }
 }

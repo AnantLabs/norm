@@ -46,7 +46,7 @@ namespace NORM.Migration
         public virtual void MigrateToLast()
         {
             var currentVersion = GetCurrentVersion();
-            var migrates = GetMigrates();
+            var migrates = GetMigrations();
             foreach (var migrate in migrates.OrderBy(x => x.Key))
             {
                 if (migrate.Key > currentVersion)
@@ -80,8 +80,7 @@ namespace NORM.Migration
         /// <summary>
         /// Получить список всех миграций из текущего проекта
         /// </summary>
-        /// <returns></returns>
-        protected virtual Dictionary<int, BaseMigration> GetMigrates()
+        public virtual Dictionary<int, BaseMigration> GetMigrations()
         {
             var assembly = Assembly.GetEntryAssembly();
             var migrationTypes = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof (BaseMigration)) && !x.IsAbstract);
@@ -99,10 +98,18 @@ namespace NORM.Migration
         }
 
         /// <summary>
+        /// Получить последнюю миграцию из текущего проекта
+        /// </summary>
+        public virtual BaseMigration GetLastMigration()
+        {
+            var migrations = GetMigrations();
+            return migrations[migrations.Max(x => x.Key)];
+        }
+
+        /// <summary>
         /// Получить текущую версию БД
         /// </summary>
-        /// <returns></returns>
-        protected virtual int GetCurrentVersion()
+        public virtual int GetCurrentVersion()
         {
             if (!_database.IsTableExist(_settingTableName)) CreateSettingsTable();
 

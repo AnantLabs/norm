@@ -133,6 +133,7 @@ namespace NORM.Examples
 
         public void MigrateToLast()
         {
+            Console.WriteLine(@"Performing database migration...");
             new Migrator<SQLiteDatabase, Settings>().MigrateToLast();
         }
     }

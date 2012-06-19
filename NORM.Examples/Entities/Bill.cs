@@ -40,5 +40,10 @@ namespace NORM.Examples.Entities
 
         [Column]
         public int? PrevBillId { get; set; }
+
+        public Bill NextBill
+        {
+            get { return NextBillId.HasValue ? GetById(NextBillId.Value) : null; }
+        }
     }
 }

@@ -23,6 +23,11 @@ namespace NORM.Migration
         private readonly string _settingTableName;
 
         /// <summary>
+        /// Имя сборки, содержащей миграции
+        /// </summary>
+        private readonly Assembly _migrationsAssembly = Assembly.GetEntryAssembly();
+
+        /// <summary>
         /// Для работы с БД
         /// </summary>
         private readonly TDatabase _database = new TDatabase();
@@ -38,6 +43,18 @@ namespace NORM.Migration
             {
                 throw new Exception("Некорректная таблица для хранения версии БД");
             }
+        }
+
+        public Migrator(string migrationsAssemblyName)
+            : this()
+        {
+            _migrationsAssembly = Assembly.Load(migrationsAssemblyName);
+        }
+
+        public Migrator(Assembly migrationsAssembly)
+            : this()
+        {
+            _migrationsAssembly = migrationsAssembly;
         }
 
         /// <summary>
@@ -78,12 +95,11 @@ namespace NORM.Migration
         }
 
         /// <summary>
-        /// Получить список всех миграций из текущего проекта
+        /// Получить все миграции
         /// </summary>
         public virtual Dictionary<int, BaseMigration> GetMigrations()
         {
-            var assembly = Assembly.GetEntryAssembly();
-            var migrationTypes = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof (BaseMigration)) && !x.IsAbstract);
+            var migrationTypes = _migrationsAssembly.GetTypes().Where(x => x.IsSubclassOf(typeof(BaseMigration)) && !x.IsAbstract);
             var result = new Dictionary<int, BaseMigration>();
             foreach (var migrationType in migrationTypes)
             {
@@ -98,7 +114,7 @@ namespace NORM.Migration
         }
 
         /// <summary>
-        /// Получить последнюю миграцию из текущего проекта
+        /// Получить последнюю миграцию
         /// </summary>
         public virtual BaseMigration GetLastMigration()
         {

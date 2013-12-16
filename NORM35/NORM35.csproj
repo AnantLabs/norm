@@ -12,6 +12,7 @@
     <AssemblyName>NORM35</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,24 +31,39 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\Libs\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="Entity\BaseImportableEntity.cs" />
+    <Compile Include="Entity\ColumnAttribute.cs" />
+    <Compile Include="Entity\TableAttribute.cs" />
+    <Compile Include="Extensions\DataTableExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtention.cs" />
+    <Compile Include="Extensions\DirectoryInfoExtension.cs" />
+    <Compile Include="Extensions\IEnumerableExtension.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\ObjectParseExtention.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TimeSpanExtention.cs" />
+    <Compile Include="Migration\BaseMigration.cs" />
+    <Compile Include="Migration\ISettingsEntity.cs" />
+    <Compile Include="Migration\Migrator.cs" />
+    <Compile Include="Migration\VersionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ExpressionReflection.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NORM\NORM.csproj">
-      <Project>{24FF61DE-4527-4E7F-8E5C-A2F7B124A707}</Project>
-      <Name>NORM</Name>
-    </ProjectReference>
+    <Compile Include="SQLite\SQLiteDatabase.cs" />
+    <Compile Include="SqlServer\SqlServerDatabase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
